@@ -6,12 +6,17 @@ import store from "./store";
 // import "ant-design-vue/dist/antd.less";
 // import Button from "ant-design-vue/lib/button";
 // import "ant-design-vue/lib/button/style";
-import { Button } from "ant-design-vue";
+import { Button, Layout, Icon, Drawer, Radio } from "ant-design-vue";
 
 //将 Vue 的生产提示关闭，这样在生产环境下不会产生提示信息。
 Vue.config.productionTip = false;
 
 Vue.use(Button);
+Vue.use(Layout);
+Vue.use(Icon);
+Vue.use(Drawer);
+Vue.use(Radio);
+
 
 new Vue({
   router,
