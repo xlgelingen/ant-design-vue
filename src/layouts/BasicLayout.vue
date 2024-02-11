@@ -6,10 +6,11 @@
         :theme="navTheme"
         :trigger="null"
         v-model="collapsed"
+        width=" 256px"
         collapsible
       >
         <div class="logo">Ant Design Vue Pro</div>
-        <Sider></Sider>
+        <SiderMenu :theme='navTheme'></SiderMenu>
       </a-layout-sider>
       <a-layout>
         <a-layout-header
@@ -38,7 +39,7 @@
 <script>
 import Header from "./HeaderLayout.vue";
 import Footer from "./FooterLayout.vue";
-import Sider from "./SiderMenu.vue";
+import SiderMenu from "./SiderMenu.vue";
 import SettingDrawer from "../components/SettingDrawer/DrawerIndex.vue";
 
 export default {
@@ -58,7 +59,7 @@ export default {
   components: {
     Header,
     Footer,
-    Sider,
+    SiderMenu,
     SettingDrawer,
   },
 };

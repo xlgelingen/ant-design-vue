@@ -11,11 +11,13 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/user",
+    //在Menu中隐藏
+    hideInMenu: true,
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layouts/UserLayout.vue"),
     children: [
       {
-        path:"",
+        path: "",
         redirect: "/user/login",
       },
       {
@@ -41,15 +43,19 @@ const routes = [
         path: "",
         redirect: "/dashboard"
       },
+      //会从有name的地方开始渲染，所以Dashboard和form都是一级菜单
       {
         path: "/dashboard",
         name: "Dashboard",
+        //添加一些原信息
+        meta: { icon: "dashboard", title: "仪表盘" },
         redirect: "/dashboard/analysis",
-        component: { render: h => h("router-view")},
+        component: { render: h => h("router-view") },
         children: [
           {
             path: "/dashboard/analysis",
             name: "analysis",
+            meta: { title: "分析页" },
             component: () =>
               import(/* webpackChunkName: "dashboard" */ "../views/Dashboard/DashboardAnalysis"),
           },
@@ -58,7 +64,8 @@ const routes = [
       {
         path: "/form",
         name: "form",
-        component: { render: h => h("router-view")},
+        meta: { icon: "form", title: "表单" },
+        component: { render: h => h("router-view") },
         children: [
           {
             path: "/form",
@@ -67,12 +74,16 @@ const routes = [
           {
             path: "/form/basic-form",
             name: "basicform",
+            meta: { title: "基础表单" },
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm"),
           },
           {
             path: "/form/step-form",
             name: "stepform",
+            meta: { title: "分步表单" },
+            //在Menu中隐藏子组件
+            hideChildrenInMenu: true,
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/StepIndex"),
             children: [
@@ -107,6 +118,8 @@ const routes = [
   {
     path: "*",
     name: "404",
+    //在Menu中隐藏
+    hideInMenu:true,
     component: NotFound,
   },
 ];
@@ -119,7 +132,7 @@ const router = new VueRouter({
 
 //路由守卫
 router.beforeEach((to, from, next) => {
-  if(to.path != from.path){
+  if (to.path != from.path) {
     NProgress.start();
   }
   next();
