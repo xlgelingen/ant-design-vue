@@ -10,7 +10,16 @@
         <a-menu-item
           v-if="!item.children"
           :key="item.path"
-          @click="() => $router.push({ path: item.path, query: $route.query })"
+          @click="
+            () => {
+              if ($route.path !== item.path) {
+                $router.push({ path: item.path, query: $route.query });
+              } else {
+                //location.reload();
+                reloadPage();
+              }
+            }
+          "
         >
           <a-icon v-if="item.meta.icon" type="item.meta.icon" />
           <span>11{{ item.meta.title }}</span>
@@ -18,9 +27,9 @@
         <sub-menu
           v-else
           :key="item.path"
-          
           :menu-info="item"
           :parentQuery="$route.query"
+          @reloadPage="reloadPage"
         />
       </template>
     </a-menu>
@@ -30,6 +39,7 @@
 
 <script>
 import SubMenu from "./SubMenu.vue";
+import { check } from "../utils/auth";
 
 export default {
   components: {
@@ -66,13 +76,21 @@ export default {
     // showQuery() {
     //   console.log(this.$route.query);
     // },
+    reloadPage() {
+      console.log("执行页面刷新操作")
+      // 执行页面刷新操作
+      window.location.reload();
+    },
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
     },
     getMenuData(routes = [], parentKeys = [], selectedKeys) {
       const menuData = [];
       // console.log("最外层：",routes);
-      routes.forEach((item) => {
+      for (let item of routes) {
+        if (item.meta && item.meta.authority && !check(item.meta.authority)) {
+          break;
+        }
         if (item.name && !item.hideInMenu) {
           this.openKeysMap[item.path] = parentKeys;
           this.selectedKeysMap[item.path] = [selectedKeys || item.path];
@@ -104,7 +122,7 @@ export default {
           );
           // console.log("use后的menuData: ",menuData)
         }
-      });
+      }
       return menuData;
     },
   },

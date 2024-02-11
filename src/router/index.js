@@ -2,9 +2,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import NotFound from "../views/NotFound";
+import NotFound from "../views/404NotFound";
 // import HomeView from "../views/HomeView.vue";
 // import RenderRouterView from "../components/RenderRouterView.vue";
+import Forbidden from "../views/403Forbidden";
+import findLast from "lodash/findLast";
+import { check, isLogin } from "../utils/auth";
+import { notification } from "ant-design-vue";
+
 
 Vue.use(VueRouter);
 
@@ -36,6 +41,7 @@ const routes = [
   },
   {
     path: "/",
+    meta: { authority: ["user", "admin"] },
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
     children: [
@@ -64,7 +70,7 @@ const routes = [
       {
         path: "/form",
         name: "form",
-        meta: { icon: "form", title: "表单" },
+        meta: { icon: "form", title: "表单", authority: ["admin"] },
         component: { render: h => h("router-view") },
         children: [
           {
@@ -116,10 +122,16 @@ const routes = [
     ],
   },
   {
+    path: "/403",
+    name: "403",
+        hideInMenu: true,
+    component: Forbidden
+  },
+  {
     path: "*",
     name: "404",
     //在Menu中隐藏
-    hideInMenu:true,
+    hideInMenu: true,
     component: NotFound,
   },
 ];
@@ -132,11 +144,30 @@ const router = new VueRouter({
 
 //路由守卫
 router.beforeEach((to, from, next) => {
-  if (to.path != from.path) {
+  if (to.path !== from.path) {
     NProgress.start();
+  }
+  // 找到最近匹配的那个
+  const record = findLast(to.matched, record => record.meta.authority);
+  if (record && !check(record.meta.authority)) {
+    if (!isLogin() && to.path !== "/user/login") {
+      next({
+        path: "/user/login"
+      });
+    } else if (to.path !== "/403") {
+      notification.error({
+        message: "403",
+        description: "你没有权限访问，请联系管理员"
+      });
+      next({
+        path: "/403"
+      });
+    }
+    NProgress.done();
   }
   next();
 })
+
 
 router.afterEach(() => {
   NProgress.done();

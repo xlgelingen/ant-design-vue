@@ -8,7 +8,14 @@
       <a-menu-item 
         v-if="!item.children" 
         :key="item.path"
-        @click="() => parent.$router.push({path: item.path, query: parent.$route.query})"
+        @click="() => {
+              if (parent.$route.path !== item.path) {
+                parent.$router.push({path: item.path, query: parent.$route.query})
+              } else {
+                //如果跳转页面和当前页面一样，就刷新页面
+                parent.reloadPage();
+              }
+            }"
       >
         <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
         <span>{{ item.meta.title }}</span>
