@@ -18,6 +18,7 @@
         <sub-menu
           v-else
           :key="item.path"
+          
           :menu-info="item"
           :parentQuery="$route.query"
         />
@@ -55,6 +56,7 @@ export default {
     };
   },
   watch: {
+    //用于监视 $route.path 的变化。当路由路径发生变化时，将触发该函数。
     "$route.path": function (val) {
       this.selectedKeys = this.selectedKeysMap[val];
       this.openKeys = this.collapsed ? [] : this.openKeysMap[val];
