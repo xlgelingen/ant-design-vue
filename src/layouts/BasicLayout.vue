@@ -1,5 +1,5 @@
 <template>
-  <div :class='[`nav-theme-${navTheme}`,`nav-layout-${navLayout}`]'>
+  <div :class="[`nav-theme-${navTheme}`, `nav-layout-${navLayout}`]">
     <a-layout id="components-layout-demo-side" style="min-height: 100vh">
       <a-layout-sider
         v-if="navLayout === 'left'"
@@ -10,14 +10,16 @@
         collapsible
       >
         <div class="logo">Ant Design Vue Pro</div>
-        <SiderMenu :theme='navTheme'></SiderMenu>
+        <SiderMenu :theme="navTheme"></SiderMenu>
       </a-layout-sider>
       <a-layout>
         <a-layout-header
           class="header-wrapper"
           style="background: #fff; padding: 0"
         >
+          <!-- 使用指令 -->
           <a-icon
+            v-auth="['admin']"
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="collapsed = !collapsed"
@@ -32,7 +34,10 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <SettingDrawer />
+    <!-- 这里，全局使用 -->
+    <AuthorizedCom :authority="['admin']">
+      <SettingDrawer />
+    </AuthorizedCom>
   </div>
 </template>
 
@@ -49,12 +54,12 @@ export default {
     };
   },
   computed: {
-    navTheme(){
-      return this.$route.query.navTheme || 'dark';
+    navTheme() {
+      return this.$route.query.navTheme || "dark";
     },
-    navLayout(){
-      return this.$route.query.navLayout || 'left';
-    }
+    navLayout() {
+      return this.$route.query.navLayout || "left";
+    },
   },
   components: {
     Header,
@@ -85,14 +90,14 @@ export default {
   align-items: center;
 }
 .logo {
-    height: 64px;
-    line-height: 64px;
-    text-align: center;
-    overflow: hidden;
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  overflow: hidden;
 }
 .nav-theme-dark {
-    .logo {
-        color: #fff;
-    }
+  .logo {
+    color: #fff;
+  }
 }
 </style>

@@ -7,6 +7,8 @@ import store from "./store";
 // import Button from "ant-design-vue/lib/button";
 // import "ant-design-vue/lib/button/style";
 import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
+import Authorized from "./components/AuthorizeCom.vue";
+import Auth from "./directives/auth";
 
 //将 Vue 的生产提示关闭，这样在生产环境下不会产生提示信息。
 Vue.config.productionTip = false;
@@ -17,6 +19,11 @@ Vue.use(Icon);
 Vue.use(Drawer);
 Vue.use(Radio);
 Vue.use(Menu);
+
+//全局注册组件
+Vue.component("AuthorizedCom",Authorized);
+//注册指令
+Vue.use(Auth);
 
 
 new Vue({
