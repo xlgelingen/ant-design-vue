@@ -29,6 +29,12 @@ Vue.component("AuthorizedCom",Authorized);
 //注册指令
 Vue.use(Auth);
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/c/font_4435344_edk3thostv.js', // 在 iconfont.cn 上生成
+});
+//全局注册组件
+Vue.component("IconFont", IconFont);
+
 
 new Vue({
   router,
