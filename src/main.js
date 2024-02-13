@@ -6,7 +6,7 @@ import store from "./store";
 // import "ant-design-vue/dist/antd.less";
 // import Button from "ant-design-vue/lib/button";
 // import "ant-design-vue/lib/button/style";
-import { Button, Layout, Icon, Drawer, Radio, Menu, Form, Input } from "ant-design-vue";
+import { Button, Layout, Icon, Drawer, Radio, Menu, Form, Input, Select } from "ant-design-vue";
 import Authorized from "./components/AuthorizeCom.vue";
 import Auth from "./directives/auth";
 
@@ -21,6 +21,7 @@ Vue.use(Radio);
 Vue.use(Menu);
 Vue.use(Form);
 Vue.use(Input);
+Vue.use(Select);
 
 
 //全局注册组件

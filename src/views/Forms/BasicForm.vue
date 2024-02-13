@@ -1,4 +1,5 @@
 <template>
+  <!-- form要传递给组件，通过:form="form" -->
   <a-form :layout="formLayout" :form="form">
     <a-form-item
       label="Form Layout"
@@ -69,6 +70,7 @@
 <script>
 export default {
   data() {
+    //创建form实例，$form通过vue.use(Form)来挂载到vue实例上，就可以通过this.$form来访问
     this.form = this.$form.createForm(this);
     return {
       formLayout: "horizontal",
