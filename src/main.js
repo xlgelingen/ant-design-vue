@@ -9,6 +9,10 @@ import store from "./store";
 import { Button, Layout, Icon, Drawer, Radio, Menu, Form, Input, Select, LocaleProvider, Dropdown, DatePicker } from "ant-design-vue";
 import Authorized from "./components/AuthorizeCom.vue";
 import Auth from "./directives/auth";
+import VueHighlightJS from 'vue-highlightjs';
+import 'highlight.js/styles/monokai-sublime.css';
+
+Vue.use(VueHighlightJS);
 
 //将 Vue 的生产提示关闭，这样在生产环境下不会产生提示信息。
 Vue.config.productionTip = false;

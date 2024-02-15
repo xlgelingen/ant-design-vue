@@ -1,7 +1,8 @@
 <template>
   <div>
-    <a-date-picker/>
+    <a-date-picker />
     <ChartCom :options="chartOptions" style="height: 400px" />
+    <pre v-highlightjs><code class="html">{{chartCode}}</code></pre>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import ChartCom from "../../components/ChartCom.vue";
 // import axios from "axios";
 import request from "@/utils/request.js";
+import chartCode from "!!raw-loader!@/components/ChartCom.vue";
 
 export default {
   components: {
@@ -17,6 +19,7 @@ export default {
   data() {
     return {
       chartOptions: {},
+      chartCode,
     };
   },
   mounted() {
