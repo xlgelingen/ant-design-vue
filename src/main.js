@@ -6,7 +6,7 @@ import store from "./store";
 // import "ant-design-vue/dist/antd.less";
 // import Button from "ant-design-vue/lib/button";
 // import "ant-design-vue/lib/button/style";
-import { Button, Layout, Icon, Drawer, Radio, Menu, Form, Input, Select } from "ant-design-vue";
+import { Button, Layout, Icon, Drawer, Radio, Menu, Form, Input, Select, LocaleProvider, Dropdown, DatePicker } from "ant-design-vue";
 import Authorized from "./components/AuthorizeCom.vue";
 import Auth from "./directives/auth";
 
@@ -22,10 +22,14 @@ Vue.use(Menu);
 Vue.use(Form);
 Vue.use(Input);
 Vue.use(Select);
+Vue.use(LocaleProvider);
+//这里全局注册
+Vue.use(Dropdown);
+Vue.use(DatePicker);
 
 
 //全局注册组件
-Vue.component("AuthorizedCom",Authorized);
+Vue.component("AuthorizedCom", Authorized);
 //注册指令
 Vue.use(Auth);
 

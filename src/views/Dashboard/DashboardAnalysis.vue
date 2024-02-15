@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a-date-picker/>
     <ChartCom :options="chartOptions" style="height: 400px" />
   </div>
 </template>

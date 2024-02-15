@@ -1,8 +1,30 @@
 <template>
   <div id="app">
-    <!-- 11 -->
-    <router-view />
+    <a-locale-provider :locale="locale">
+      <router-view />
+    </a-locale-provider>
   </div>
 </template>
+<script>
+import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+import enUS from "ant-design-vue/lib/locale-provider/en_US";
+// 对日期进行处理
+import moment from "moment";
 
+export default {
+  data() {
+    return {
+      locale: zhCN,
+    };
+  },
+  //通过路由切换语言和日期
+  watch: {
+    "$route.query.locale": function (val) {
+      this.locale = val === "zhCN" ? zhCN : enUS;
+      moment.locale(val === "zhCN" ? "zh-cn" : "en");
+      console.log(moment);
+    },
+  },
+};
+</script>
 <style lang="less"></style>
