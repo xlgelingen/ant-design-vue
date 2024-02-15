@@ -7,6 +7,9 @@ module.exports = defineConfig({
         lessOptions: {
           javascriptEnabled: true,
           math: "always",
+          modifyVars: {
+            'primary-color': '#1DA57A',
+          },
         },
       },
     },
